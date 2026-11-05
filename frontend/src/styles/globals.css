@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ink: #1d3029;
+    --forest: #173c32;
+    --forest-soft: #e8f0ea;
+    --paper: #f7f3eb;
+    --paper-deep: #eee8dc;
+    --surface: #fffdf8;
+    --muted: #6e766e;
+    --subtle: #9da39b;
+    --line: #dedfd5;
+    --coral: #d96552;
+    --coral-soft: #f9e6df;
+    --sage: #8da78f;
+    --sage-soft: #e4eee5;
+    --lilac: #a69bc4;
+    --lilac-soft: #eeeaf5;
+    --focus: #173c32;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    color: var(--ink);
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Academic editorial headers */
+  h1, h2, h3, .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  /* Visible keyboard focus for every interactive element */
+  :focus-visible {
+    outline: 2px solid var(--forest);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* StudyMate Visual Elements (Halo Rings, Streak Orbit, Progress)    */
+/* ------------------------------------------------------------------ */
+.welcome-hero-banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--forest);
+  color: var(--paper);
+}
+
+.welcome-hero-banner::after {
+  content: '';
+  position: absolute;
+  width: 290px;
+  height: 290px;
+  right: 6%;
+  top: -110px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 28px rgba(255, 255, 255, 0.04),
+    0 0 0 56px rgba(255, 255, 255, 0.04),
+    0 0 0 84px rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+}
+
+.streak-orbit-circle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Dark theme remapping                                               */
+/* ------------------------------------------------------------------ */
+.dark body {
+  background-color: #111a17;
+  color: #ede9e1;
+}
+
+.dark :root {
+  --ink: #ede9e1;
+  --paper: #111a17;
+  --paper-deep: #172420;
+  --surface: #1a2924;
+  --line: #293d36;
+  --muted: #9aa8a1;
+  --forest-soft: #1d352e;
+}
+
+.dark .bg-\[\#f7f3eb\], .dark .bg-paper {
+  background-color: #111a17;
+}
+
+.dark .bg-white, .dark .bg-\[\#fffdf8\], .dark .bg-paper-surface {
+  background-color: #1a2924;
+}
+
+.dark .border-slate-200, .dark .border-line {
+  border-color: #293d36;
+}
+
+.dark .text-slate-900, .dark .text-ink {
+  color: #ede9e1;
+}
+
+.dark .text-slate-600, .dark .text-ink-muted {
+  color: #a4b3ac;
+}
+
+.dark .bg-slate-50, .dark .bg-paper-deep {
+  background-color: #172420;
+}

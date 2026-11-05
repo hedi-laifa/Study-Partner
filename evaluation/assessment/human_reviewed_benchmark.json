@@ -1,0 +1,711 @@
+{
+  "benchmark_name": "Study Partner AI — Phase 6 Human-Reviewed Assessment Benchmark",
+  "version": "1.0.0",
+  "reviewed_by": "Senior CS Faculty & Technical Lead",
+  "cases": [
+    {
+      "case_id": "BM-01-CORRECT-MMU",
+      "answer_category": "correct",
+      "concept_id": "00000000-0000-4000-8000-000000000101",
+      "concept_title": "Virtual Memory and MMU Address Translation",
+      "question_text": "How does the hardware MMU translate virtual addresses into physical addresses, and what happens when a referenced virtual page is unmapped?",
+      "ideal_answer_summary": "The hardware MMU translates virtual page numbers into physical frame numbers using a page table. When a virtual page is unmapped, the MMU triggers a page fault trap to the OS kernel so the page can be loaded from disk into a physical frame.",
+      "rubric": {
+        "required_ideas": [
+          "MMU translates virtual page numbers into physical frame numbers using a page table",
+          "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "MMU Virtual-to-Physical Translation",
+            "description": "Explains virtual page number to physical frame translation via the page table.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "MMU translates virtual page numbers into physical frame numbers using a page table"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Page Fault Trap Handling",
+            "description": "Explains that an unmapped page triggers a page fault trap to the OS kernel.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+            ]
+          }
+        ]
+      },
+      "student_answer": "The hardware MMU translates each process's virtual page numbers into physical frame numbers in RAM by consulting the page table. Because some pages reside on disk, referencing an unmapped virtual page causes the MMU to trigger a page fault trap to the OS kernel, which loads the required page from disk into a free physical frame.",
+      "human_verdict": "CORRECT",
+      "human_rubric_score": 95.0,
+      "human_misconception": null,
+      "human_error_classification": "NONE"
+    },
+    {
+      "case_id": "BM-02-CORRECT-TLB-NUMERIC",
+      "answer_category": "correct",
+      "concept_id": "00000000-0000-4000-8000-000000000102",
+      "concept_title": "TLB Effective Access Time Calculation",
+      "question_text": "Calculate the Effective Access Time (EAT) in nanoseconds when TLB lookup takes 0 ns (overlapped), main memory access takes 100 ns, a TLB hit takes 1 memory access (100 ns), a TLB miss takes 2 memory accesses (200 ns), and the TLB hit ratio is 90% (0.90). Explain why a high hit ratio reduces EAT.",
+      "ideal_answer_summary": "The Effective Access Time equals 110 ns because 0.90 * 100 + 0.10 * 200 = 110 ns. A high TLB hit ratio avoids the extra main memory page table lookup on most translations.",
+      "rubric": {
+        "required_ideas": [
+          "Calculates Effective Access Time as 0.90 * 100 + 0.10 * 200 = 110 ns",
+          "Explains that TLB hits avoid the extra main memory page table lookup"
+        ],
+        "numerical_check": {
+          "expected_value": 110.0,
+          "tolerance": 0.5,
+          "unit": "ns",
+          "formula_description": "EAT = 0.90 * 100 + 0.10 * 200 = 110 ns"
+        },
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "TLB Hit vs Miss Explanation",
+            "description": "Explains how TLB hits avoid walking the page table in main memory.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Explains that TLB hits avoid the extra main memory page table lookup"
+            ]
+          },
+          {
+            "criterion_id": "quantitative_accuracy",
+            "name": "EAT Numerical Calculation",
+            "description": "Correctly computes EAT = 110 ns.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Calculates Effective Access Time as 0.90 * 100 + 0.10 * 200 = 110 ns"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Using the weighted average formula, EAT = 0.90 * 100 + 0.10 * 200 = 90 + 20 = 110 ns. Because 90% of translations hit in the TLB cache, the CPU avoids the extra main memory page table lookup on almost all accesses.",
+      "human_verdict": "CORRECT",
+      "human_rubric_score": 95.0,
+      "human_misconception": null,
+      "human_error_classification": "NONE"
+    },
+    {
+      "case_id": "BM-03-CORRECT-RAFT",
+      "answer_category": "correct",
+      "concept_id": "00000000-0000-4000-8000-000000000103",
+      "concept_title": "Raft Leader Election and Log Replication",
+      "question_text": "How does Raft elect a single leader and replicate client log entries safely across followers?",
+      "ideal_answer_summary": "Raft uses randomized election timeouts so a candidate requests votes via RequestVote RPCs and wins a majority quorum. The elected leader replicates log entries to followers using AppendEntries RPCs.",
+      "rubric": {
+        "required_ideas": [
+          "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader",
+          "Leader replicates client log entries to followers via AppendEntries RPCs"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Leader Election & Majority Quorum",
+            "description": "Explains randomized election timeouts, RequestVote RPCs, and majority quorum.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "AppendEntries Log Replication",
+            "description": "Explains that the leader replicates log entries via AppendEntries RPCs.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Leader replicates client log entries to followers via AppendEntries RPCs"
+            ]
+          }
+        ]
+      },
+      "student_answer": "When followers time out using randomized election timeouts, a candidate increments its term and sends RequestVote RPCs, winning election once it secures a majority quorum of nodes. The elected leader then accepts client log entries and replicates them across followers via AppendEntries RPCs.",
+      "human_verdict": "CORRECT",
+      "human_rubric_score": 95.0,
+      "human_misconception": null,
+      "human_error_classification": "NONE"
+    },
+    {
+      "case_id": "BM-04-PARTIAL-MMU-MISSING-FAULT",
+      "answer_category": "partial",
+      "concept_id": "00000000-0000-4000-8000-000000000101",
+      "concept_title": "Virtual Memory and MMU Address Translation",
+      "question_text": "How does the hardware MMU translate virtual addresses into physical addresses, and what happens when a referenced virtual page is unmapped?",
+      "ideal_answer_summary": "The hardware MMU translates virtual page numbers into physical frame numbers using a page table. When a virtual page is unmapped, the MMU triggers a page fault trap to the OS kernel so the page can be loaded from disk into a physical frame.",
+      "rubric": {
+        "required_ideas": [
+          "MMU translates virtual page numbers into physical frame numbers using a page table",
+          "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "MMU Virtual-to-Physical Translation",
+            "description": "Explains virtual page number to physical frame translation via the page table.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "MMU translates virtual page numbers into physical frame numbers using a page table"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Page Fault Trap Handling",
+            "description": "Explains that an unmapped page triggers a page fault trap to the OS kernel.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+            ]
+          }
+        ]
+      },
+      "student_answer": "The hardware MMU translates virtual page numbers into physical frame numbers using the process page table in memory.",
+      "human_verdict": "PARTIALLY_CORRECT",
+      "human_rubric_score": 58.0,
+      "human_misconception": null,
+      "human_error_classification": "INCOMPLETE_REASONING"
+    },
+    {
+      "case_id": "BM-05-PARTIAL-RAFT-MISSING-REPLICATION",
+      "answer_category": "partial",
+      "concept_id": "00000000-0000-4000-8000-000000000103",
+      "concept_title": "Raft Leader Election and Log Replication",
+      "question_text": "How does Raft elect a single leader and replicate client log entries safely across followers?",
+      "ideal_answer_summary": "Raft uses randomized election timeouts so a candidate requests votes via RequestVote RPCs and wins a majority quorum. The elected leader replicates log entries to followers using AppendEntries RPCs.",
+      "rubric": {
+        "required_ideas": [
+          "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader",
+          "Leader replicates client log entries to followers via AppendEntries RPCs"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Leader Election & Majority Quorum",
+            "description": "Explains randomized election timeouts, RequestVote RPCs, and majority quorum.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "AppendEntries Log Replication",
+            "description": "Explains that the leader replicates log entries via AppendEntries RPCs.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Leader replicates client log entries to followers via AppendEntries RPCs"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Raft elects a leader using randomized election timeouts where a candidate sends RequestVote RPCs and must receive votes from a majority quorum.",
+      "human_verdict": "PARTIALLY_CORRECT",
+      "human_rubric_score": 60.0,
+      "human_misconception": null,
+      "human_error_classification": "INCOMPLETE_REASONING"
+    },
+    {
+      "case_id": "BM-06-PARTIAL-SCHEDULING-MISSING-AGING",
+      "answer_category": "partial",
+      "concept_id": "00000000-0000-4000-8000-000000000104",
+      "concept_title": "Priority Scheduling and Starvation Mitigation",
+      "question_text": "What causes starvation in preemptive priority scheduling, and how does aging resolve it?",
+      "ideal_answer_summary": "Starvation occurs when a stream of high-priority processes indefinitely blocks low-priority processes from getting the CPU. Aging resolves starvation by gradually increasing the priority of processes that wait for a long time.",
+      "rubric": {
+        "required_ideas": [
+          "High-priority processes indefinitely block low-priority processes from CPU execution",
+          "Aging gradually increases the priority of waiting processes over time"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Starvation Cause",
+            "description": "Defines starvation as indefinite blocking of low-priority processes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "High-priority processes indefinitely block low-priority processes from CPU execution"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Aging Mitigation Mechanism",
+            "description": "Explains that aging gradually increases the priority of waiting processes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Aging gradually increases the priority of waiting processes over time"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Starvation happens because a continuous stream of high-priority processes keeps preempting the CPU so low-priority processes wait indefinitely in the ready queue.",
+      "human_verdict": "PARTIALLY_CORRECT",
+      "human_rubric_score": 58.0,
+      "human_misconception": null,
+      "human_error_classification": "INCOMPLETE_REASONING"
+    },
+    {
+      "case_id": "BM-07-INCORRECT-MISCONCEPTION-MMU",
+      "answer_category": "incorrect",
+      "concept_id": "00000000-0000-4000-8000-000000000101",
+      "concept_title": "Virtual Memory and MMU Address Translation",
+      "question_text": "How does the hardware MMU translate virtual addresses into physical addresses, and what happens when a referenced virtual page is unmapped?",
+      "ideal_answer_summary": "The hardware MMU translates virtual page numbers into physical frame numbers using a page table. When a virtual page is unmapped, the MMU triggers a page fault trap to the OS kernel so the page can be loaded from disk into a physical frame.",
+      "rubric": {
+        "required_ideas": [
+          "MMU translates virtual page numbers into physical frame numbers using a page table",
+          "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "MMU Virtual-to-Physical Translation",
+            "description": "Explains virtual page number to physical frame translation via the page table.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "MMU translates virtual page numbers into physical frame numbers using a page table"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Page Fault Trap Handling",
+            "description": "Explains that an unmapped page triggers a page fault trap to the OS kernel.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+            ]
+          }
+        ]
+      },
+      "student_answer": "The MMU translates physical to virtual addresses for the CPU, and when a page fault occurs, the page fault crashes the computer immediately.",
+      "human_verdict": "INCORRECT",
+      "human_rubric_score": 15.0,
+      "human_misconception": "Confuses direction of MMU address translation (claiming physical addresses are translated into virtual addresses).",
+      "human_error_classification": "FACTUAL_MISTAKE"
+    },
+    {
+      "case_id": "BM-08-INCORRECT-MISCONCEPTION-TLB",
+      "answer_category": "incorrect",
+      "concept_id": "00000000-0000-4000-8000-000000000102",
+      "concept_title": "Translation Lookaside Buffer (TLB) Caching",
+      "question_text": "What role does the TLB play in address translation, and how do ASIDs affect context switches?",
+      "ideal_answer_summary": "The TLB is a fast hardware cache of recent virtual-to-physical translations; on a TLB miss the CPU walks the page table in main memory. ASIDs tag TLB entries by process to avoid flushing the entire TLB on every context switch.",
+      "rubric": {
+        "required_ideas": [
+          "TLB is a hardware cache of page table entries that walks main memory on a miss",
+          "ASIDs tag TLB entries by process to avoid flushing the entire TLB on context switches"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "TLB Cache Role",
+            "description": "Explains TLB caching and page table walk on a miss.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "TLB is a hardware cache of page table entries that walks main memory on a miss"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "ASID Context Switch Optimization",
+            "description": "Explains how ASIDs prevent full TLB flushes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "ASIDs tag TLB entries by process to avoid flushing the entire TLB on context switches"
+            ]
+          }
+        ]
+      },
+      "student_answer": "The TLB completely replaces the page table in main memory so the TLB never misses, and ASIDs require flushing the entire TLB on every context switch.",
+      "human_verdict": "INCORRECT",
+      "human_rubric_score": 15.0,
+      "human_misconception": "Claims the TLB completely replaces the page table in main memory or that TLB lookups never miss.",
+      "human_error_classification": "FACTUAL_MISTAKE"
+    },
+    {
+      "case_id": "BM-09-INCORRECT-MISCONCEPTION-AGING",
+      "answer_category": "incorrect",
+      "concept_id": "00000000-0000-4000-8000-000000000104",
+      "concept_title": "Priority Scheduling and Starvation Mitigation",
+      "question_text": "What causes starvation in preemptive priority scheduling, and how does aging resolve it?",
+      "ideal_answer_summary": "Starvation occurs when a stream of high-priority processes indefinitely blocks low-priority processes from getting the CPU. Aging resolves starvation by gradually increasing the priority of processes that wait for a long time.",
+      "rubric": {
+        "required_ideas": [
+          "High-priority processes indefinitely block low-priority processes from CPU execution",
+          "Aging gradually increases the priority of waiting processes over time"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Starvation Cause",
+            "description": "Defines starvation as indefinite blocking of low-priority processes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "High-priority processes indefinitely block low-priority processes from CPU execution"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Aging Mitigation Mechanism",
+            "description": "Explains that aging gradually increases the priority of waiting processes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Aging gradually increases the priority of waiting processes over time"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Aging solves starvation because it decreases the priority of waiting processes the longer they stay in the ready queue.",
+      "human_verdict": "INCORRECT",
+      "human_rubric_score": 20.0,
+      "human_misconception": "Claims aging solves starvation by decreasing the priority of waiting processes rather than gradually increasing it.",
+      "human_error_classification": "FACTUAL_MISTAKE"
+    },
+    {
+      "case_id": "BM-10-INCORRECT-NUMERIC-CALCULATION",
+      "answer_category": "incorrect",
+      "concept_id": "00000000-0000-4000-8000-000000000102",
+      "concept_title": "TLB Effective Access Time Calculation",
+      "question_text": "Calculate the Effective Access Time (EAT) in nanoseconds when TLB lookup takes 0 ns (overlapped), main memory access takes 100 ns, a TLB hit takes 1 memory access (100 ns), a TLB miss takes 2 memory accesses (200 ns), and the TLB hit ratio is 90% (0.90).",
+      "ideal_answer_summary": "The Effective Access Time equals 110 ns because 0.90 * 100 + 0.10 * 200 = 110 ns.",
+      "rubric": {
+        "required_ideas": [
+          "Calculates Effective Access Time as 0.90 * 100 + 0.10 * 200 = 110 ns"
+        ],
+        "numerical_check": {
+          "expected_value": 110.0,
+          "tolerance": 0.5,
+          "unit": "ns",
+          "formula_description": "EAT = 0.90 * 100 + 0.10 * 200 = 110 ns"
+        },
+        "criteria": [
+          {
+            "criterion_id": "quantitative_accuracy",
+            "name": "EAT Numerical Calculation",
+            "description": "Correctly computes EAT = 110 ns.",
+            "max_points": 100.0,
+            "required_ideas": [
+              "Calculates Effective Access Time as 0.90 * 100 + 0.10 * 200 = 110 ns"
+            ]
+          }
+        ]
+      },
+      "student_answer": "I multiplied the numbers and got EAT = 190 ns because 90% of 200 is 180 plus 10 is 190 ns.",
+      "human_verdict": "INCORRECT",
+      "human_rubric_score": 25.0,
+      "human_misconception": null,
+      "human_error_classification": "CALCULATION_ERROR"
+    },
+    {
+      "case_id": "BM-11-VAGUE-NON-ANSWER",
+      "answer_category": "vague",
+      "concept_id": "00000000-0000-4000-8000-000000000101",
+      "concept_title": "Virtual Memory and MMU Address Translation",
+      "question_text": "How does the hardware MMU translate virtual addresses into physical addresses, and what happens when a referenced virtual page is unmapped?",
+      "ideal_answer_summary": "The hardware MMU translates virtual page numbers into physical frame numbers using a page table. When a virtual page is unmapped, the MMU triggers a page fault trap to the OS kernel so the page can be loaded from disk into a physical frame.",
+      "rubric": {
+        "required_ideas": [
+          "MMU translates virtual page numbers into physical frame numbers using a page table",
+          "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "MMU Virtual-to-Physical Translation",
+            "description": "Explains virtual page number to physical frame translation via the page table.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "MMU translates virtual page numbers into physical frame numbers using a page table"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Page Fault Trap Handling",
+            "description": "Explains that an unmapped page triggers a page fault trap to the OS kernel.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Not sure, I don't know the exact details.",
+      "human_verdict": "INSUFFICIENT_EVIDENCE",
+      "human_rubric_score": 15.0,
+      "human_misconception": null,
+      "human_error_classification": "AMBIGUOUS_OR_VAGUE"
+    },
+    {
+      "case_id": "BM-12-VAGUE-GENERIC-FILLER",
+      "answer_category": "vague",
+      "concept_id": "00000000-0000-4000-8000-000000000102",
+      "concept_title": "Translation Lookaside Buffer (TLB) Caching",
+      "question_text": "What role does the TLB play in address translation, and how do ASIDs affect context switches?",
+      "ideal_answer_summary": "The TLB is a fast hardware cache of recent virtual-to-physical translations; on a TLB miss the CPU walks the page table in main memory. ASIDs tag TLB entries by process to avoid flushing the entire TLB on every context switch.",
+      "rubric": {
+        "required_ideas": [
+          "TLB is a hardware cache of page table entries that walks main memory on a miss",
+          "ASIDs tag TLB entries by process to avoid flushing the entire TLB on context switches"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "TLB Cache Role",
+            "description": "Explains TLB caching and page table walk on a miss.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "TLB is a hardware cache of page table entries that walks main memory on a miss"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "ASID Context Switch Optimization",
+            "description": "Explains how ASIDs prevent full TLB flushes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "ASIDs tag TLB entries by process to avoid flushing the entire TLB on context switches"
+            ]
+          }
+        ]
+      },
+      "student_answer": "It basically helps the computer system work faster and optimizes overall performance somehow.",
+      "human_verdict": "INSUFFICIENT_EVIDENCE",
+      "human_rubric_score": 15.0,
+      "human_misconception": null,
+      "human_error_classification": "AMBIGUOUS_OR_VAGUE"
+    },
+    {
+      "case_id": "BM-13-VAGUE-ULTRA-SHORT",
+      "answer_category": "vague",
+      "concept_id": "00000000-0000-4000-8000-000000000103",
+      "concept_title": "Raft Leader Election and Log Replication",
+      "question_text": "How does Raft elect a single leader and replicate client log entries safely across followers?",
+      "ideal_answer_summary": "Raft uses randomized election timeouts so a candidate requests votes via RequestVote RPCs and wins a majority quorum. The elected leader replicates log entries to followers using AppendEntries RPCs.",
+      "rubric": {
+        "required_ideas": [
+          "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader",
+          "Leader replicates client log entries to followers via AppendEntries RPCs"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Leader Election & Majority Quorum",
+            "description": "Explains randomized election timeouts, RequestVote RPCs, and majority quorum.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "AppendEntries Log Replication",
+            "description": "Explains that the leader replicates log entries via AppendEntries RPCs.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Leader replicates client log entries to followers via AppendEntries RPCs"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Servers vote.",
+      "human_verdict": "INSUFFICIENT_EVIDENCE",
+      "human_rubric_score": 15.0,
+      "human_misconception": null,
+      "human_error_classification": "AMBIGUOUS_OR_VAGUE"
+    },
+    {
+      "case_id": "BM-14-OFF-TOPIC-BIOLOGY",
+      "answer_category": "off-topic",
+      "concept_id": "00000000-0000-4000-8000-000000000101",
+      "concept_title": "Virtual Memory and MMU Address Translation",
+      "question_text": "How does the hardware MMU translate virtual addresses into physical addresses, and what happens when a referenced virtual page is unmapped?",
+      "ideal_answer_summary": "The hardware MMU translates virtual page numbers into physical frame numbers using a page table. When a virtual page is unmapped, the MMU triggers a page fault trap to the OS kernel so the page can be loaded from disk into a physical frame.",
+      "rubric": {
+        "required_ideas": [
+          "MMU translates virtual page numbers into physical frame numbers using a page table",
+          "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "MMU Virtual-to-Physical Translation",
+            "description": "Explains virtual page number to physical frame translation via the page table.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "MMU translates virtual page numbers into physical frame numbers using a page table"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Page Fault Trap Handling",
+            "description": "Explains that an unmapped page triggers a page fault trap to the OS kernel.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Photosynthesis occurs inside plant chloroplasts where chlorophyll absorbs sunlight to convert carbon dioxide and water into glucose and oxygen.",
+      "human_verdict": "OFF_TOPIC",
+      "human_rubric_score": 0.0,
+      "human_misconception": null,
+      "human_error_classification": "OFF_TOPIC"
+    },
+    {
+      "case_id": "BM-15-OFF-TOPIC-SQL-NORMALIZATION",
+      "answer_category": "off-topic",
+      "concept_id": "00000000-0000-4000-8000-000000000103",
+      "concept_title": "Raft Leader Election and Log Replication",
+      "question_text": "How does Raft elect a single leader and replicate client log entries safely across followers?",
+      "ideal_answer_summary": "Raft uses randomized election timeouts so a candidate requests votes via RequestVote RPCs and wins a majority quorum. The elected leader replicates log entries to followers using AppendEntries RPCs.",
+      "rubric": {
+        "required_ideas": [
+          "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader",
+          "Leader replicates client log entries to followers via AppendEntries RPCs"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Leader Election & Majority Quorum",
+            "description": "Explains randomized election timeouts, RequestVote RPCs, and majority quorum.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "AppendEntries Log Replication",
+            "description": "Explains that the leader replicates log entries via AppendEntries RPCs.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Leader replicates client log entries to followers via AppendEntries RPCs"
+            ]
+          }
+        ]
+      },
+      "student_answer": "Third Normal Form (3NF) in relational database design removes transitive functional dependencies between non-prime attributes and primary keys in SQL tables.",
+      "human_verdict": "OFF_TOPIC",
+      "human_rubric_score": 0.0,
+      "human_misconception": null,
+      "human_error_classification": "OFF_TOPIC"
+    },
+    {
+      "case_id": "BM-16-AMBIGUOUS-MMU-BOTH-DIRECTIONS",
+      "answer_category": "ambiguous",
+      "concept_id": "00000000-0000-4000-8000-000000000101",
+      "concept_title": "Virtual Memory and MMU Address Translation",
+      "question_text": "How does the hardware MMU translate virtual addresses into physical addresses, and what happens when a referenced virtual page is unmapped?",
+      "ideal_answer_summary": "The hardware MMU translates virtual page numbers into physical frame numbers using a page table. When a virtual page is unmapped, the MMU triggers a page fault trap to the OS kernel so the page can be loaded from disk into a physical frame.",
+      "rubric": {
+        "required_ideas": [
+          "MMU translates virtual page numbers into physical frame numbers using a page table",
+          "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "MMU Virtual-to-Physical Translation",
+            "description": "Explains virtual page number to physical frame translation via the page table.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "MMU translates virtual page numbers into physical frame numbers using a page table"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Page Fault Trap Handling",
+            "description": "Explains that an unmapped page triggers a page fault trap to the OS kernel.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Unmapped virtual page triggers a page fault trap to the OS kernel to load the page from disk"
+            ]
+          }
+        ]
+      },
+      "student_answer": "The MMU translates virtual to physical or physical to virtual depending on the situation, I am not sure which direction is actually used.",
+      "human_verdict": "INSUFFICIENT_EVIDENCE",
+      "human_rubric_score": 25.0,
+      "human_misconception": null,
+      "human_error_classification": "AMBIGUOUS_OR_VAGUE"
+    },
+    {
+      "case_id": "BM-17-AMBIGUOUS-AGING-HEDGED",
+      "answer_category": "ambiguous",
+      "concept_id": "00000000-0000-4000-8000-000000000104",
+      "concept_title": "Priority Scheduling and Starvation Mitigation",
+      "question_text": "What causes starvation in preemptive priority scheduling, and how does aging resolve it?",
+      "ideal_answer_summary": "Starvation occurs when a stream of high-priority processes indefinitely blocks low-priority processes from getting the CPU. Aging resolves starvation by gradually increasing the priority of processes that wait for a long time.",
+      "rubric": {
+        "required_ideas": [
+          "High-priority processes indefinitely block low-priority processes from CPU execution",
+          "Aging gradually increases the priority of waiting processes over time"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Starvation Cause",
+            "description": "Defines starvation as indefinite blocking of low-priority processes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "High-priority processes indefinitely block low-priority processes from CPU execution"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "Aging Mitigation Mechanism",
+            "description": "Explains that aging gradually increases the priority of waiting processes.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Aging gradually increases the priority of waiting processes over time"
+            ]
+          }
+        ]
+      },
+      "student_answer": "In priority scheduling, aging either increases or decreases the priority of waiting processes, maybe it increases priority or maybe it decreases it.",
+      "human_verdict": "INSUFFICIENT_EVIDENCE",
+      "human_rubric_score": 25.0,
+      "human_misconception": null,
+      "human_error_classification": "AMBIGUOUS_OR_VAGUE"
+    },
+    {
+      "case_id": "BM-18-AMBIGUOUS-RAFT-QUORUM",
+      "answer_category": "ambiguous",
+      "concept_id": "00000000-0000-4000-8000-000000000103",
+      "concept_title": "Raft Leader Election and Log Replication",
+      "question_text": "How does Raft elect a single leader and replicate client log entries safely across followers?",
+      "ideal_answer_summary": "Raft uses randomized election timeouts so a candidate requests votes via RequestVote RPCs and wins a majority quorum. The elected leader replicates log entries to followers using AppendEntries RPCs.",
+      "rubric": {
+        "required_ideas": [
+          "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader",
+          "Leader replicates client log entries to followers via AppendEntries RPCs"
+        ],
+        "criteria": [
+          {
+            "criterion_id": "core_concepts",
+            "name": "Leader Election & Majority Quorum",
+            "description": "Explains randomized election timeouts, RequestVote RPCs, and majority quorum.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Randomized election timeouts and RequestVote RPCs require a majority quorum to elect a leader"
+            ]
+          },
+          {
+            "criterion_id": "causal_reasoning",
+            "name": "AppendEntries Log Replication",
+            "description": "Explains that the leader replicates log entries via AppendEntries RPCs.",
+            "max_points": 50.0,
+            "required_ideas": [
+              "Leader replicates client log entries to followers via AppendEntries RPCs"
+            ]
+          }
+        ]
+      },
+      "student_answer": "A Raft candidate either needs a majority or does not need a majority depending on the cluster, it might elect a leader with one vote or maybe all votes.",
+      "human_verdict": "INSUFFICIENT_EVIDENCE",
+      "human_rubric_score": 25.0,
+      "human_misconception": null,
+      "human_error_classification": "AMBIGUOUS_OR_VAGUE"
+    }
+  ]
+}
